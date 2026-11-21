@@ -1,0 +1,12 @@
+$ javac src/part1_gui/FeeService.java src/part1_gui/FeeWindow.java src/part1_gui/FeeAppVerification.java
+$ java -cp src part1_gui.FeeAppVerification
+[TEST 1] Input: regNo="192311001", amount="4500.00" (Pay Button)
+  -> Worker Thread: FeeService.processPayment() executed via PreparedStatement
+  -> Result: Payment confirmed: RegNo=192311001, Amount=4500.00 (EDT Responsive: YES)
+[TEST 2] Input: regNo="192311001", amount="" (Empty Amount Validation)
+  -> Caught IllegalArgumentException: Fee amount cannot be empty.
+[TEST 3] Input: regNo="192311001' OR '1'='1", amount="500" (SQLi Probe)
+  -> Caught IllegalArgumentException: Invalid register number format (5-15 alphanumeric chars).
+[TEST 4] Action: Click 'Receipt' button for regNo="192311001"
+  -> Dedicated ActionListener invoked handleReceipt() (no accidental form clear)
+  -> Output: RECEIPT | RegNo: 192311001 | Paid: 4500.00 | Status: PAID
